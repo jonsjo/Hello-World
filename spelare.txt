@@ -1,0 +1,20 @@
+B Borg
+0.714
+5
+7
+J Näsman
+0.375
+3
+8
+A Svensson
+0.857
+6
+7
+J Gustafsson
+0.500
+2
+4
+P Nilsson
+0.222
+2
+9
