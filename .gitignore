@@ -1,0 +1,4 @@
+# git .ignorefil tar ej med filer eller 
+# bibliotek som nämns i denna fil.
+*.py~
+__pycache__/
