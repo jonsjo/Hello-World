@@ -26,26 +26,27 @@ class Game:
 
     #vinnare tilldelas text som skall visas senare, gameTXT
     def updateStatus(self,res,winner,looser):
+        newres = ""
         if res == "   0  ":
-            res = "  15  "
+            newres = "  15  "
         elif res == "  15  ":
-            res = "  30  "
+            newres = "  30  "
         elif res == "  15  ":
-            res = "  30  "
+            newres = "  30  "
         elif res == "  30  ":
-            res = "  40  "
+            newres = "  40  "
         elif res == "  40  ":
             if winner > (looser + 1):
-                res = " Game "
+                newres = " Game "
             else:    
-                res = "Fördel"
+                newres = "Fördel"
         elif res == "Fördel":
-            res = " Game "
+            newres = " Game "
         elif res ==" Lika ":
-            res = "Fördel"
-        return res
+            newres = "Fördel"
+        return newres
 
-    #bygger upp resultat i form av text 
+    #bygger upp resultat i form av text. 
     def gameTXTSet(self):            
         if self.spelare1==self.spelare2 and self.spelare1>3:
             self.resSpelare1=" Lika "
@@ -69,7 +70,7 @@ class Game:
             gameTXT = self.resSpelare1+self.resSpelare2
         return gameTXT      
 
-    #kontroll av    
+    #kontroll av att ett Set är uppnåt.   
     def gameSetCheck(self):
         gameSet = FALSE
         if self.spelare1 == 4 and self.spelare2 < 3:
@@ -94,6 +95,8 @@ class Game:
             self.spelare2=0
         return gameSet    
 
+    #Spel är slut, när någon vinner med minst 2 poäng
+    #samt att vinnare har uppnåt minst 6 poäng eller mer.
     def gameEndCheck(self):
         gameEndRes=FALSE
         if ((self.RES[1]>=6)or(self.RES[0]>=6)):
