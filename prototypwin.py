@@ -42,6 +42,9 @@ def spelaHjalpInfo():
                
    messagebox.showinfo(message=hjalptext, title='Hjälp & info', icon='info')     
 
+def spelaBoll():
+   dummy=TRUE
+   
 #match spelas vid anrop      
 def spelaMatch():
    #spelare 1
@@ -70,14 +73,23 @@ def spelaMatch():
    g = Game()
    g.resGlobals()
    gameEnd = FALSE
+   setTXT=""
    #när spel är slut lämnas loopen
    while not gameEnd:
       gameTXT, gameRES, gameSet, gameEnd = g.gameOver()
-      #print( gameTXT)
+      print( gameTXT)
       t.insert(END,gameTXT)
       t.insert(END,'\n')
+      #setTXT += str(gameTXT) + "\n"
+      #messagebox.showinfo("Resultat:     ", setTXT)
+      labelBOLL.configure(text=str(gameTXT))
+      messagebox.showinfo(" GAME ON ", "Tryck på ok!");
       if gameSet:
-          #print("Set ",gameRES)
+          print("Set ",gameRES)
+          #setTXT += str(gameRES) + "\n"
+          #messagebox.showinfo("Set         ",setTXT )
+          labelSET.configure(text="Set "+str(gameRES))
+          messagebox.showinfo(" GAME ON ", "Tryck på ok!");
           t.insert(END,"Set "+str(gameRES))
           t.insert(END,'\n')
           gameSet=FALSE 
@@ -139,6 +151,10 @@ else:
    t.insert('1.0',RESULTATRUBRIK + spelarlista.skrivListaText())
    bSpelaMatcth = Button(root,text="Spela match",command=spelaMatch)
    bSpelaMatcth.pack(side=BOTTOM, expand=YES)
-
+   labelSET = Label(root,text = "Set [0,0]")
+   labelSET.pack(side=BOTTOM, expand=YES)
+   labelBOLL = Label(root,text = " 0 0 ")
+   labelBOLL.pack(side=BOTTOM, expand=YES)
+   
 #programlopp   
 root.mainloop()
