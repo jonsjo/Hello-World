@@ -27,6 +27,7 @@ from gamefunc import *
 # Hjäp och info fås via dialog ruta
 # Avslut av program genom att sänga fönster.
 
+
 #visar hjälp text vid anrop
 def spelaHjalpInfo():
    hjalptext = "Spela Match:\n" + \
@@ -42,8 +43,9 @@ def spelaHjalpInfo():
                
    messagebox.showinfo(message=hjalptext, title='Hjälp & info', icon='info')     
 
-def spelaBoll():
-   dummy=TRUE
+def spelaXtra():
+   print("spelaXtra ",dummy.get())
+   dummy.set(dummy.get()+1)
    
 #match spelas vid anrop      
 def spelaMatch():
@@ -75,21 +77,24 @@ def spelaMatch():
    gameEnd = FALSE
    setTXT=""
    #när spel är slut lämnas loopen
-   while not gameEnd:
+   while not gameEnd:           
       gameTXT, gameRES, gameSet, gameEnd = g.gameOver()
       print( gameTXT)
       t.insert(END,gameTXT)
       t.insert(END,'\n')
-      #setTXT += str(gameTXT) + "\n"
-      #messagebox.showinfo("Resultat:     ", setTXT)
-      labelBOLL.configure(text=str(gameTXT))
-      messagebox.showinfo(" GAME ON ", "Tryck på ok!");
+      setTXT = ""
+      setTXT = spelarlista.txtSpelare(spelare1,spelare2) + "       " +  str(gameTXT) + "\n"
+      print(setTXT)
+      if 'Serv & Set'==valRes.get():
+         messagebox.showinfo("Spela boll :     ", setTXT)
+     
       if gameSet:
-          print("Set ",gameRES)
-          #setTXT += str(gameRES) + "\n"
-          #messagebox.showinfo("Set         ",setTXT )
-          labelSET.configure(text="Set "+str(gameRES))
-          messagebox.showinfo(" GAME ON ", "Tryck på ok!");
+          print("Set :",gameRES)
+          setTXT = ""
+          setTXT = spelarlista.txtSpelare(spelare1,spelare2) +  "           " + str(gameRES) + "\n"
+          print(setTXT)
+          if 'Serv & Set'==valRes.get() or 'Set'==valRes.get():
+             messagebox.showinfo("Set ",setTXT )                 
           t.insert(END,"Set "+str(gameRES))
           t.insert(END,'\n')
           gameSet=FALSE 
@@ -117,6 +122,9 @@ root = Tk()
 
 #sätt titel på fönster
 root.title("Spela Tennis Match")
+
+
+
 
 #läs in text från fil
 res, txt = lasInTextFranFil('spelare.txt')
@@ -149,12 +157,18 @@ elif not (resvarden):
 else:
 #kontroll av in fil och giltiga värden ok   
    t.insert('1.0',RESULTATRUBRIK + spelarlista.skrivListaText())
+#   servRes = IntVar()
+#   Checkbutton(root,text="Serv & Set",variable=servRes).pack(expand=YES, side=LEFT)
+#   setRes  = IntVar()
+#   Checkbutton(root,text="Endast Set",variable=setRes).pack(expand=YES, side=LEFT)
+   valRes = StringVar()
+   valen = ['Serv & Set','Set','Ingen']
+   for val in valen:
+      Radiobutton(root,text=val,value=val,variable=valRes).pack(expand=YES, side=LEFT)
+   valRes.set('Ingen')
    bSpelaMatcth = Button(root,text="Spela match",command=spelaMatch)
    bSpelaMatcth.pack(side=BOTTOM, expand=YES)
-   labelSET = Label(root,text = "Set [0,0]")
-   labelSET.pack(side=BOTTOM, expand=YES)
-   labelBOLL = Label(root,text = " 0 0 ")
-   labelBOLL.pack(side=BOTTOM, expand=YES)
+
    
 #programlopp   
 root.mainloop()

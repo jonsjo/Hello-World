@@ -130,6 +130,13 @@ class SpelarLista:
       txtResInfo += (self.lista[vinst-1].namn + " vann!!!").replace("\n","")
       return txtResInfo
 
+   # Returnerar inmatade spelare
+   def txtSpelare(self,spelare_1,spelare_2):
+      txtResInfo  = ""
+      txtResInfo  = (self.lista[spelare_1-1].namn + " mot " + \
+                     self.lista[spelare_2-1].namn).replace("\n","") + "\n"     
+      return txtResInfo
+
 # Spela tennis match med två spelare
 def spelaTennisMatch(spelare1,spelare2):
    temp = [spelare1,spelare2]
